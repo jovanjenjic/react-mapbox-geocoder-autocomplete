@@ -9,5 +9,5 @@ Possible ways to search for an address:
 Before starting the application I suggestion you to do: npm clean install;
 then run application (npm start).
 
-## npm ci;
-## npm start;
+npm ci; // package-lock.json contain all required libraries
+npm start;
