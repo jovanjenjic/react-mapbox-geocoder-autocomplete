@@ -9,3 +9,7 @@ Possible ways to search for an address:
 
 - npm clean install; // package-lock.json contain all required libraries;
 - npm start;
+
+
+![gggg](https://user-images.githubusercontent.com/57072437/178556525-974bf8e2-0a6e-416e-b514-c2db1c2a7ce0.png)
+![gggg2](https://user-images.githubusercontent.com/57072437/178556530-6c653871-8089-41de-b2d6-1454f14cc9c8.png)
