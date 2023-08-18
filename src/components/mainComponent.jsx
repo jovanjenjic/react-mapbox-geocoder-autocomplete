@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import { message } from "antd";
 import styled from "styled-components";
-
 import MapGl from "./mapGl";
 import Geocode from "./geocode";
 
@@ -32,7 +30,7 @@ const getMapAddress = async ({ lng, lat }) => {
       return result?.features?.[0]?.place_name || "";
     }
   } catch {
-    message.error("Error");
+    console.error("Error");
   }
   return {};
 };
