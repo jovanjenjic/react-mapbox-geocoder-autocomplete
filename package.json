@@ -1,7 +1,19 @@
 {
-  "name": "geocode",
-  "version": "3.0.0",
-  "private": true,
+  "name": "react-mapbox-geocoder-autocomplete",
+  "version": "0.0.0",
+  "description": "React mapbox geocoder with autocomplete (suggested addresses)",
+  "main": "dist/App.js",
+  "keywords": [
+    "mapbox geocoder",
+    "mapbox geocode",
+    "geocode",
+    "geocoder",
+    "autocomplete",
+    "react geocoder",
+    "react geocode",
+    "react geocode autocomplete"
+  ],
+  "author": "Jovan Jenjic",
   "dependencies": {
     "mapbox": "^1.0.0-beta10",
     "prop-types": "^15.6.2",
