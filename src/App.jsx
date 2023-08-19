@@ -1,14 +1,9 @@
 import React, { useState } from "react";
-import styled from "styled-components";
 import MapGl from "./components/Map";
 import Geocode from "./components/Geocode";
 
-const Wrapper = styled.div`
-  width: 100%;
-  height: 1000px;
-`;
-
 const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
+const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
 
 const initViewPosition = {
   latitude: 44.84659048242156,
@@ -32,7 +27,7 @@ const getMapAddress = async (mapToken, { lng, lat }) => {
   return {};
 };
 
-const MainComponent = ({ mapToken, mapPosition = initViewPosition }) => {
+const MainComponent = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initViewPosition }) => {
   const [viewPosition, setViewPosition] = useState(mapPosition);
   const [address, setAddress] = useState("");
 
@@ -41,7 +36,7 @@ const MainComponent = ({ mapToken, mapPosition = initViewPosition }) => {
     setAddress(addressReponse);
   }, []);
 
-  const onSelected = (vp, item) => {
+  const onItemClick = (vp, item) => {
     setAddress(item?.place_name);
     setViewPosition(vp);
   };
@@ -56,9 +51,9 @@ const MainComponent = ({ mapToken, mapPosition = initViewPosition }) => {
   const onStyleData = () => setViewPosition({ ...viewPosition });
 
   return (
-    <Wrapper>
+    <>
       <Geocode
-        onSelected={onSelected}
+        onItemClick={onItemClick}
         address={address}
         mapToken={mapToken}
       />
@@ -67,8 +62,10 @@ const MainComponent = ({ mapToken, mapPosition = initViewPosition }) => {
         onStyleData={onStyleData}
         mapToken={mapToken}
         handleMarkerDrag={handleMarkerDrag}
+        mapStyle={mapStyle}
+        mapPin={mapPin}
       />
-    </Wrapper>
+    </>
   );
 };
 

@@ -1,14 +1,10 @@
 import React from "react";
 import ReactMapboxGl, { Feature, Layer } from "react-mapbox-gl";
 import styled from "styled-components";
-import PropTypes from "prop-types";
 import MapPin from "../images/pin.png";
-
-const mapStyle = "mapbox://styles/mapbox/streets-v11";
 
 const MapContainer = styled.div`
   height: 100%;
-
   .mapboxgl-map,
   canvas.mapboxgl-canvas {
     height: 100%;
@@ -21,7 +17,7 @@ const MapContainer = styled.div`
   }
 `;
 
-const MapGl = ({ viewPosition, handleMarkerDrag, onStyleData, mapToken }) => {
+const MapGl = ({ viewPosition, handleMarkerDrag, onStyleData, mapToken, mapStyle, mapPin }) => {
   const MapComponent = React.useMemo(
     () =>
       ReactMapboxGl({
@@ -32,7 +28,7 @@ const MapGl = ({ viewPosition, handleMarkerDrag, onStyleData, mapToken }) => {
 
   const loadImagesToMap = async (map) => {
     await new Promise((resolve) => {
-      map.loadImage(MapPin, (_, image) => {
+      map.loadImage(mapPin || MapPin, (_, image) => {
         map.addImage("map-pin-geocode", image);
         resolve();
       });
@@ -64,13 +60,6 @@ const MapGl = ({ viewPosition, handleMarkerDrag, onStyleData, mapToken }) => {
       </MapComponent>
     </MapContainer>
   );
-};
-
-MapGl.propTypes = {
-  viewPosition: PropTypes.object.isRequired,
-  handleMarkerDrag: PropTypes.func.isRequired,
-  onStyleData: PropTypes.func.isRequired,
-  mapToken: PropTypes.string.isRequired,
 };
 
 export default MapGl;
