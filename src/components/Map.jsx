@@ -6,50 +6,35 @@ import MapPin from "../images/pin.png";
 
 const mapStyle = "mapbox://styles/mapbox/streets-v11";
 
-const MapComponent = ReactMapboxGl({
-  accessToken:
-    "pk.eyJ1Ijoiam92YW5qZW5qaWMiLCJhIjoiY2wzdWJvNG4wMGZ2YjNkcGZ2dm5kZm5nYyJ9.9bCbz74PqDnzQDpBqRenHw",
-});
-
 const MapContainer = styled.div`
-  .mapboxgl-map {
-    min-height: 40vh !important;
-  }
+  height: 100%;
 
-  .mapboxgl-ctrl.mapboxgl-ctrl-attrib {
-    display: none !important;
-  }
-
+  .mapboxgl-map,
   canvas.mapboxgl-canvas {
+    height: 100%;
     outline: none;
   }
 
+  .mapboxgl-ctrl.mapboxgl-ctrl-attrib,
   a.mapboxgl-ctrl-logo {
     display: none;
   }
 `;
 
-const MapGl = ({
-  viewPosition,
-  setViewPosition,
-  setAddress,
-  getMapAddress,
-}) => {
-  const handleMarkerDrag = async ({ lngLat }) => {
-    const { lng, lat } = lngLat;
-
-    const addressReponse = await getMapAddress({ lng, lat });
-    setAddress(addressReponse);
-
-    setViewPosition({ ...viewPosition, longitude: lng, latitude: lat });
-  };
+const MapGl = ({ viewPosition, handleMarkerDrag, onStyleData, mapToken }) => {
+  const MapComponent = React.useMemo(
+    () =>
+      ReactMapboxGl({
+        accessToken: mapToken,
+      }),
+    [mapToken]
+  );
 
   const loadImagesToMap = async (map) => {
     await new Promise((resolve) => {
       map.loadImage(MapPin, (_, image) => {
         map.addImage("map-pin-geocode", image);
         resolve();
-        return true;
       });
     });
   };
@@ -57,10 +42,9 @@ const MapGl = ({
   return (
     <MapContainer>
       <MapComponent
-        // eslint-disable-next-line
         style={mapStyle}
         center={[viewPosition?.longitude, viewPosition?.latitude]}
-        onStyleData={() => setViewPosition({ ...viewPosition })}
+        onStyleData={onStyleData}
         onStyleLoad={loadImagesToMap}
       >
         <Layer
@@ -68,6 +52,7 @@ const MapGl = ({
           layout={{
             "icon-image": "map-pin-geocode",
             "icon-allow-overlap": true,
+            "icon-anchor": "bottom",
           }}
         >
           <Feature
@@ -82,17 +67,10 @@ const MapGl = ({
 };
 
 MapGl.propTypes = {
-  viewPosition: PropTypes.object,
-  setViewPosition: PropTypes.func,
-  setAddress: PropTypes.func,
-  getMapAddress: PropTypes.func,
-};
-
-MapGl.defaultProps = {
-  viewPosition: {},
-  setViewPosition: () => {},
-  setAddress: () => {},
-  getMapAddress: () => {},
+  viewPosition: PropTypes.object.isRequired,
+  handleMarkerDrag: PropTypes.func.isRequired,
+  onStyleData: PropTypes.func.isRequired,
+  mapToken: PropTypes.string.isRequired,
 };
 
 export default MapGl;

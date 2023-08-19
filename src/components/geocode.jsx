@@ -1,8 +1,7 @@
-/* eslint-disable camelcase */
-import React from "react";
-import styled from "styled-components";
+import React, { useState, useEffect } from "react";
 import PropTypes from "prop-types";
-import Geocoder from "./geocodeComponent";
+import MapboxClient from "mapbox";
+import styled from "styled-components";
 
 const GeocoderWrapper = styled.div`
   width: 100%;
@@ -58,36 +57,84 @@ const GeocoderWrapper = styled.div`
   }
 `;
 
-const Geocode = ({ setViewPosition, address, setAddress, mapToken }) => {
-  const onSelected = (vp, item) => {
-    setAddress(item?.place_name);
-    setViewPosition(vp);
+const Geocoder = ({
+  onSelected,
+  pointZoom = 6,
+  timeout = 300,
+  limit = 5,
+  mapToken,
+  address = "",
+}) => {
+  const [results, setResults] = useState([]);
+  const [showResults, setShowResults] = useState(false);
+  const [inputValue, setInputValue] = useState(address);
+
+  const client = new MapboxClient(mapToken);
+
+  const onChange = (event) => {
+    const queryString = event.target.value;
+    setInputValue(queryString);
+
+    setTimeout(() => {
+      client.geocodeForward(queryString, { limit: limit - results.length })
+        .then((res) => setResults([...res.entity.features]));
+    }, timeout);
   };
+
+  const onSelectedItem = (item) => {
+    const { center } = item;
+    const newViewport = {
+      longitude: center[0],
+      latitude: center[1],
+      zoom: pointZoom,
+    };
+
+    onSelected(newViewport, item);
+  };
+
+  const hideResults = () => {
+    setTimeout(() => setShowResults(false), 300);
+  };
+
+  useEffect(() => {
+    setInputValue(address);
+  }, [address]);
 
   return (
     <GeocoderWrapper>
-      <Geocoder
-        mapboxApiAccessToken={mapToken}
-        onSelected={onSelected}
-        hideOnSelect={false}
-        initialInputValue={address}
-        updateInputOnSelect
-        value={address}
-      />
+      <div className="react-geocoder">
+        <input
+          onChange={onChange}
+          onBlur={hideResults}
+          onFocus={() => setShowResults(true)}
+          value={inputValue}
+        />
+
+        {showResults && results.length > 0 && (
+          <div className="react-geocoder-results">
+            {results.map((item) => (
+              <div
+                key={item?.id}
+                className="react-geocoder-item"
+                onClick={() => onSelectedItem(item)}
+              >
+                {item.place_name}
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
     </GeocoderWrapper>
   );
 };
 
-Geocode.propTypes = {
-  setViewPosition: PropTypes.func,
-  setAddress: PropTypes.func,
+Geocoder.propTypes = {
+  timeout: PropTypes.number,
+  onSelected: PropTypes.func.isRequired,
+  pointZoom: PropTypes.number,
+  mapToken: PropTypes.string.isRequired,
+  limit: PropTypes.number,
   address: PropTypes.string,
 };
 
-Geocode.defaultProps = {
-  setViewPosition: () => {},
-  setAddress: () => {},
-  address: "",
-};
-
-export default Geocode;
+export default Geocoder;
