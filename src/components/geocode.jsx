@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MapboxClient from "mapbox";
 import styled from "styled-components";
 
 const CustomGeocoderWrapper = styled.div`
@@ -79,6 +78,21 @@ const CustomGeocoderWrapper = styled.div`
   
 `;
 
+/** `promiseFn` for fetching map-box address by coordinates */
+const getSuggestedAddress = async (mapToken, { address, limit }) => {
+  try {
+    const response = await fetch(
+      `${process.env.REACT_APP_MAPBOX_API_URL}${address}.json?access_token=${mapToken}&limit=${limit}`
+    );
+    if (response.status >= 200 && response.status < 300) {
+      return await response.json();
+    }
+  } catch {
+    console.error("Error");
+  }
+  return {};
+};
+
 const CustomGeocode = ({
   onItemClick,
   numOfResults = 15,
@@ -89,14 +103,12 @@ const CustomGeocode = ({
   const [showResults, setShowResults] = React.useState(false);
   const [inputValue, setInputValue] = React.useState(address);
 
-  const client = new MapboxClient(mapToken);
-
   const onChange = (event) => {
     const queryString = event.target.value;
     setInputValue(queryString);
 
-    client.geocodeForward(queryString, { limit: numOfResults - results.length })
-      .then((res) => setResults([...res.entity.features]));
+    getSuggestedAddress(mapToken, { address: queryString, limit: numOfResults })
+      .then((res) => setResults([...res.features]));
   };
 
   const onItemClickHandler = (item) => {
