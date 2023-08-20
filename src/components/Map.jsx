@@ -1,7 +1,6 @@
 import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import styled from "styled-components";
-import MapPin from "../images/pin.png";
 import 'mapbox-gl/dist/mapbox-gl.css';
 
 const MapContainer = styled.div`
@@ -13,6 +12,7 @@ const MapContainer = styled.div`
   .mapboxgl-map,
   canvas.mapboxgl-canvas {
     height: 100%;
+    width: 100%;
     outline: none;
   }
 
@@ -22,7 +22,17 @@ const MapContainer = styled.div`
   }
 `;
 
-const MapboxIntegration = ({ viewPosition, mapToken, mapPin, handleMarkerDrag, mapStyle }) => {
+const MapboxIntegration = ({
+    viewPosition,
+    mapToken,
+    mapPin,
+    handleMarkerDrag,
+    mapStyle,
+    pinSize,
+    mapMoveMode,
+    flyDuration,
+    initMapZoom
+ }) => {
     const [map, setMap] = React.useState(null);
     const [marker, setMarker] = React.useState(null);
     const mapContainerRef = React.useRef(null);
@@ -33,12 +43,12 @@ const MapboxIntegration = ({ viewPosition, mapToken, mapPin, handleMarkerDrag, m
             container: mapContainerRef.current,
             style: mapStyle,
             center: [viewPosition?.longitude, viewPosition?.latitude],
-            zoom: 10,
+            zoom: initMapZoom,
         });
         const img = document.createElement('img');
-        img.src = mapPin || MapPin;
-        img.style.width = '60px'; 
-        img.style.height = '60px';
+        img.src = mapPin;
+        img.style.width = `${pinSize[0]}px`; 
+        img.style.height = `${pinSize[1]}px`;
         const marker = new mapboxgl.Marker({
             element: img,
             draggable: true,
@@ -55,7 +65,16 @@ const MapboxIntegration = ({ viewPosition, mapToken, mapPin, handleMarkerDrag, m
             function onDragEnd() {
                 const lngLat = marker.getLngLat();
                 handleMarkerDrag(lngLat);
-                map.setCenter([lngLat.lng, lngLat.lat]);
+                
+                if (mapMoveMode === 'FLY_TO') {
+                    map.flyTo({
+                        center: [lngLat.lng, lngLat.lat],
+                        essential: true,
+                        duration: flyDuration
+                    });
+                } else {
+                    map.setCenter([lngLat.lng, lngLat.lat]);
+                }
             }
             marker.on('dragend', onDragEnd);
         }
@@ -64,7 +83,14 @@ const MapboxIntegration = ({ viewPosition, mapToken, mapPin, handleMarkerDrag, m
 
     React.useEffect(() => {
         if (!map) return;
-        map.setCenter([viewPosition?.longitude, viewPosition?.latitude]);
+        if (mapMoveMode === 'FLY_TO') {
+            map.flyTo({
+                center: [viewPosition?.longitude, viewPosition?.latitude],
+                essential: true
+            });
+        } else {
+            map.setCenter([viewPosition?.longitude, viewPosition?.latitude]);
+        }
     }, [map, viewPosition]);
 
     React.useEffect(() => {
@@ -72,7 +98,11 @@ const MapboxIntegration = ({ viewPosition, mapToken, mapPin, handleMarkerDrag, m
         marker.setLngLat([viewPosition?.longitude, viewPosition?.latitude]);
     }, [marker, viewPosition]);
       
-    return <MapContainer ref={mapContainerRef} />;
+    return (
+        <MapContainer>
+            <div ref={mapContainerRef} />
+        </MapContainer>
+    )
   };
   
   export default MapboxIntegration;

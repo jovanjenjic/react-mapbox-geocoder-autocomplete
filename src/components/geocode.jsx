@@ -81,9 +81,7 @@ const CustomGeocoderWrapper = styled.div`
 
 const CustomGeocode = ({
   onItemClick,
-  mapZoom = 6,
-  pause = 300,
-  limit = 15,
+  numOfResults = 15,
   mapToken,
   address = "",
 }) => {
@@ -97,10 +95,8 @@ const CustomGeocode = ({
     const queryString = event.target.value;
     setInputValue(queryString);
 
-    setTimeout(() => {
-      client.geocodeForward(queryString, { limit: limit - results.length })
-        .then((res) => setResults([...res.entity.features]));
-    }, pause);
+    client.geocodeForward(queryString, { limit: numOfResults - results.length })
+      .then((res) => setResults([...res.entity.features]));
   };
 
   const onItemClickHandler = (item) => {
@@ -108,7 +104,6 @@ const CustomGeocode = ({
     const newViewport = {
       longitude: center[0],
       latitude: center[1],
-      zoom: mapZoom,
     };
 
     onItemClick(newViewport, item);

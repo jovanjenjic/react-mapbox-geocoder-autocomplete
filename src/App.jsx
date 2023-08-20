@@ -1,6 +1,7 @@
 import React from "react";
 import Geocode from "./components/Geocode";
 import Map from "./components/Map";
+import MapPin from "./images/pin.png";
 
 const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
 const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
@@ -27,7 +28,17 @@ const getMapAddress = async (mapToken, { lng, lat }) => {
   return {};
 };
 
-const App = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initViewPosition }) => {
+const App = ({ 
+  mapToken,
+  mapStyle = defaultMapStyle,
+  mapPosition = initViewPosition,
+  mapPin = MapPin, 
+  pinSize = [60, 60],
+  mapMoveMode ='FLY_TO',
+  flyDuration = 10000,
+  initMapZoom = 12,
+  numOfResults = 15,
+}) => {
   const [viewPosition, setViewPosition] = React.useState(mapPosition);
   const [address, setAddress] = React.useState("");
 
@@ -48,7 +59,7 @@ const App = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initV
     const { lng, lat } = lngLat;
     const addressReponse = await getMapAddress(mapToken, { lng, lat });
     setAddress(addressReponse);
-    setViewPosition({ ...viewPosition, longitude: lng, latitude: lat });
+    setViewPosition({ longitude: lng, latitude: lat });
   };
 
   return (
@@ -57,6 +68,7 @@ const App = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initV
         onItemClick={onItemClick}
         address={address}
         mapToken={mapToken}
+        numOfResults={numOfResults}
       />
       <Map 
         viewPosition={viewPosition}
@@ -64,6 +76,10 @@ const App = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initV
         handleMarkerDrag={handleMarkerDrag}
         mapStyle={mapStyle}
         mapPin={mapPin}
+        pinSize={pinSize}
+        mapMoveMode={mapMoveMode}
+        flyDuration={flyDuration}
+        initMapZoom={initMapZoom}
       />
     </>
   );
