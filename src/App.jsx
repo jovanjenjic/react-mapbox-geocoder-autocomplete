@@ -7,8 +7,8 @@ const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
 const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
 
 const initViewPosition = {
-  latitude: 44.84659048242156,
-  longitude: 20.451609935755755,
+  longitude: -73.9866,
+  latitude: 40.72929915979287,
 };
 
 /** `promiseFn` for fetching map-box address by coordinates */
