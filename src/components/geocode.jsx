@@ -82,7 +82,7 @@ const CustomGeocoderWrapper = styled.div`
 const getSuggestedAddress = async (mapToken, { address, limit }) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_MAPBOX_API_URL}${address}.json?access_token=${mapToken}&limit=${limit}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/}${address}.json?access_token=${mapToken}&limit=${limit}`
     );
     if (response.status >= 200 && response.status < 300) {
       return await response.json();

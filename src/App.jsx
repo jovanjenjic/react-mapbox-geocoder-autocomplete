@@ -14,7 +14,7 @@ const initViewPosition = {
 const getMapAddress = async (mapToken, { lng, lat }) => {
   try {
     const response = await fetch(
-      `${process.env.REACT_APP_MAPBOX_API_URL + lng},${lat}.json?access_token=${mapToken}`
+      `https://api.mapbox.com/geocoding/v5/mapbox.places/${lng},${lat}.json?access_token=${mapToken}`
     );
     if (response.status >= 200 && response.status < 300) {
       const result = await response.json();

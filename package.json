@@ -1,6 +1,6 @@
 {
   "name": "react-mapbox-geocoder-autocomplete",
-  "version": "0.0.11",
+  "version": "1.0.2",
   "description": "React mapbox geocoder with autocomplete (suggested addresses)",
   "main": "dist/App.js",
   "types": "dist/App.d.ts",

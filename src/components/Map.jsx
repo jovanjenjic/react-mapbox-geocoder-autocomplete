@@ -13,6 +13,8 @@ const MapContainer = styled.div`
   canvas.mapboxgl-canvas {
     height: 100%;
     width: 100%;
+    min-height: 100px;
+    min-width: 100px;
     outline: none;
   }
 
