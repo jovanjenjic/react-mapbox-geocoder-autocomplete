@@ -2,10 +2,12 @@ import React from "react";
 import ReactDOM from "react-dom";
 import App from "./App";
 
+const MAP_TOKEN = process.env.REACT_APP_MAP_TOKEN;
+
 ReactDOM.render(
   <React.StrictMode>
     <div style={{ height: '400px', width: '100%' }}>
-      <App mapToken="pk.eyJ1Ijoiam92YW5qZW5qaWMiLCJhIjoiY2wzdWJvNG4wMGZ2YjNkcGZ2dm5kZm5nYyJ9.9bCbz74PqDnzQDpBqRenHw" />
+      <App mapToken={MAP_TOKEN} />
     </div>
   </React.StrictMode>,
   document.getElementById("root")
