@@ -3,7 +3,6 @@ import Geocode from "./components/Geocode";
 import Map from "./components/Map";
 import MapPin from "./images/pin.png";
 
-const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
 const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
 
 const initViewPosition = {
@@ -15,7 +14,7 @@ const initViewPosition = {
 const getMapAddress = async (mapToken, { lng, lat }) => {
   try {
     const response = await fetch(
-      `${MAPBOX_API_URL + lng},${lat}.json?access_token=${mapToken}`
+      `${process.env.REACT_APP_MAPBOX_API_URL + lng},${lat}.json?access_token=${mapToken}`
     );
     if (response.status >= 200 && response.status < 300) {
       const result = await response.json();
