@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import MapGl from "./components/Map";
+import React from "react";
 import Geocode from "./components/Geocode";
+import Map from "./components/Map";
 
 const MAPBOX_API_URL = "https://api.mapbox.com/geocoding/v5/mapbox.places/";
 const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
@@ -27,13 +27,16 @@ const getMapAddress = async (mapToken, { lng, lat }) => {
   return {};
 };
 
-const MainComponent = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initViewPosition }) => {
-  const [viewPosition, setViewPosition] = useState(mapPosition);
-  const [address, setAddress] = useState("");
+const App = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPosition = initViewPosition }) => {
+  const [viewPosition, setViewPosition] = React.useState(mapPosition);
+  const [address, setAddress] = React.useState("");
 
-  React.useEffect(async () => {
-    const addressReponse = await getMapAddress(mapToken, { lng: mapPosition.longitude, lat: mapPosition.latitude });
-    setAddress(addressReponse);
+  React.useEffect(() => {
+    const fetchAddress = async() => {
+      const addressReponse = await getMapAddress(mapToken, { lng: mapPosition.longitude, lat: mapPosition.latitude });
+      setAddress(addressReponse);
+    }
+    fetchAddress();
   }, []);
 
   const onItemClick = (vp, item) => {
@@ -41,14 +44,12 @@ const MainComponent = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPositi
     setViewPosition(vp);
   };
 
-  const handleMarkerDrag = async ({ lngLat }) => {
+  const handleMarkerDrag = async (lngLat) => {
     const { lng, lat } = lngLat;
     const addressReponse = await getMapAddress(mapToken, { lng, lat });
     setAddress(addressReponse);
     setViewPosition({ ...viewPosition, longitude: lng, latitude: lat });
   };
-
-  const onStyleData = () => setViewPosition({ ...viewPosition });
 
   return (
     <>
@@ -57,9 +58,8 @@ const MainComponent = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPositi
         address={address}
         mapToken={mapToken}
       />
-      <MapGl
+      <Map 
         viewPosition={viewPosition}
-        onStyleData={onStyleData}
         mapToken={mapToken}
         handleMarkerDrag={handleMarkerDrag}
         mapStyle={mapStyle}
@@ -69,4 +69,4 @@ const MainComponent = ({ mapToken, mapStyle = defaultMapStyle, mapPin, mapPositi
   );
 };
 
-export default MainComponent;
+export default App;
