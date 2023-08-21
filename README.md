@@ -59,3 +59,34 @@ The map has more styles that you can find here: _https://docs.mapbox.com/api/map
 
   ...
 ```
+
+## Props
+- `mapToken` (string, required):
+  Your Mapbox access token. This token is necessary for authenticating your application with Mapbox services. Ensure you provide a valid access token to enable map functionality.
+  Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+
+- `mapStyle` (string, optional, default: `mapbox://styles/mapbox/streets-v12`):
+  The style of the Mapbox map. You can specify a custom style URL or use one of the predefined styles provided by Mapbox. If not provided, the default style will be used.
+  The map has more styles that you can find here: _https://docs.mapbox.com/api/maps/styles/_
+
+- `mapPosition` (Coordinates object, optional, default: `{ longitude: -73.9866, latitude: 40.72929915979287 }`):
+  The initial position of the map when it loads. This should be an object with `latitude` and `longitude` properties representing the starting geographical coordinates of the map view.
+
+- `mapPin` (string, optional, default: `MapPin (red one)`):
+  The image source for the map marker (pin). This prop allows you to customize the appearance of the marker on the map.
+  You can pass any picture you want.
+
+- `pinSize` (array of numbers, optional, default: `[60, 60]`):
+  The dimensions (width and height) of the map marker (pin). You can adjust these values to control the size of the marker displayed on the map.
+
+- `mapMoveMode` (string, optional, default: `'BASE'`):
+  The mode of movement when updating the map's position. Choose between `'FLY_TO'` for smooth animated transitions or `'BASE'` for immediate positioning.
+
+- `flyDuration` (number, optional, default: `10000`):
+  The duration, in milliseconds, for the animation when using the `'FLY_TO'` mode. This value determines how long the transition animation takes when the map moves to a new position.
+
+- `initMapZoom` (number, optional, default: `12`):
+  The initial zoom level of the map when it loads. Adjust this value to control the initial level of detail displayed on the map.
+
+- `numOfResults` (number, optional, default: `15`):
+  The maximum number of geocoding results displayed when using the autocomplete functionality. This value determines how many location suggestions are shown as users type in the input field.
