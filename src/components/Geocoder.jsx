@@ -93,7 +93,7 @@ const getSuggestedAddress = async (mapToken, { address, limit }) => {
   return {};
 };
 
-const CustomGeocode = ({
+const Geocoder = ({
   onItemClick,
   numOfResults = 15,
   mapToken,
@@ -157,7 +157,7 @@ const CustomGeocode = ({
   );
 };
 
-CustomGeocode.propTypes = {
+Geocoder.propTypes = {
   pause: PropTypes.number,
   onItemClick: PropTypes.func.isRequired,
   mapZoom: PropTypes.number,
@@ -166,4 +166,4 @@ CustomGeocode.propTypes = {
   address: PropTypes.string,
 };
 
-export default CustomGeocode;
+export default Geocoder;

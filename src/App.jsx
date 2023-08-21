@@ -1,5 +1,5 @@
 import React from "react";
-import Geocode from "./components/Geocode";
+import Geocoder from "./components/Geocoder";
 import Map from "./components/Map";
 import MapPin from "./images/pin.png";
 
@@ -63,7 +63,7 @@ const App = ({
 
   return (
     <>
-      <Geocode
+      <Geocoder
         onItemClick={onItemClick}
         address={address}
         mapToken={mapToken}
