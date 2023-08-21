@@ -2,6 +2,8 @@
 
 The `react-mapbox-geocoder-autocomplete` library is a powerful and intuitive tool designed to seamlessly integrate Mapbox maps and geocoding capabilities into your React applications. With this library, you can easily create a map with an integrated input field that allows users to search for addresses and locations, while also providing the ability to interact with the map itself. This library aims to simplify the process of implementing interactive maps with geocoding functionalities, making it suitable for a wide range of applications, from location-based services to interactive mapping experiences.
 
+![GeocoderVideoResized (1) (1)](https://github.com/jovanjenjic/react-mapbox-geocoder-autocomplete/assets/57072437/0d55d228-38cb-4b0f-a81e-24fdd294257a)
+
 ## Key Features
 
 ### Interactive Map Integration
