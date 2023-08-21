@@ -86,7 +86,7 @@ export default App;
 - `pinSize` (array of numbers, optional, default: `[60, 60]`):
   The dimensions (width and height) of the map marker (pin). You can adjust these values to control the size of the marker displayed on the map.
 
-- `mapMoveMode` (string, optional, default: `'BASE'`):
+- `mapMoveMode` (string, optional, default: `'FLY_TO'`):
   The mode of movement when updating the map's position. Choose between `'FLY_TO'` for smooth animated transitions or `'BASE'` for immediate positioning.
 
 - `flyDuration` (number, optional, default: `10000`):
