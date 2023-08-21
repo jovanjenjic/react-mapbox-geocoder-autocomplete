@@ -5,8 +5,7 @@ The `react-mapbox-geocoder-autocomplete` library is a powerful and intuitive too
 ## Key Features
 
 ### Interactive Map Integration
-The core feature of this library is the integration of a dynamic Mapbox map. You can display the map with a specified style and initial position, enabling users to explore locations visually. The map can be configured to support two distinct modes of movement: "FLY_TO" for smooth transitions and "BASE" for immediate positioning.
-
+The core feature of this library is the integration of a dynamic Mapbox map. You can display the map with a specified style and initial position, enabling users to explore locations visually.
 ### Dynamic Marker Placement
 This library allows you to place a marker on the map, indicating a specific location. Users can interact with the marker by dragging it to a new position. As the marker moves, the associated address is automatically updated to reflect the current location, providing a seamless way to capture and display address information.
 
