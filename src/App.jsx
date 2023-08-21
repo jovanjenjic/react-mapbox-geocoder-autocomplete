@@ -1,9 +1,6 @@
 import React from "react";
 import Geocoder from "./components/Geocoder";
 import Map from "./components/Map";
-import MapPin from "./images/pin.png";
-
-const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
 
 const initViewPosition = {
   longitude: -73.9866,
@@ -29,14 +26,14 @@ const getMapAddress = async (mapToken, { lng, lat }) => {
 
 const App = ({ 
   mapToken,
-  mapStyle = defaultMapStyle,
+  mapStyle,
   mapPosition = initViewPosition,
-  mapPin = MapPin, 
-  pinSize = [60, 60],
-  mapMoveMode ='FLY_TO',
-  flyDuration = 10000,
-  initMapZoom = 12,
-  numOfResults = 15,
+  mapPin, 
+  pinSize,
+  mapMoveMode,
+  flyDuration,
+  initMapZoom,
+  numOfResults,
 }) => {
   const [viewPosition, setViewPosition] = React.useState(mapPosition);
   const [address, setAddress] = React.useState("");
@@ -70,9 +67,9 @@ const App = ({
         numOfResults={numOfResults}
       />
       <Map 
-        viewPosition={viewPosition}
         mapToken={mapToken}
         handleMarkerDrag={handleMarkerDrag}
+        viewPosition={viewPosition}
         mapStyle={mapStyle}
         mapPin={mapPin}
         pinSize={pinSize}
@@ -84,4 +81,5 @@ const App = ({
   );
 };
 
+export {Geocoder, Map};
 export default App;
