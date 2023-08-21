@@ -1,15 +1,62 @@
+# react-mapbox-geocoder-autocomplete: Mapbox Geocoding and Autocomplete React Library
 
+The `react-mapbox-geocoder-autocomplete` library is a powerful and intuitive tool designed to seamlessly integrate Mapbox maps and geocoding capabilities into your React applications. With this library, you can easily create a map with an integrated input field that allows users to search for addresses and locations, while also providing the ability to interact with the map itself. This library aims to simplify the process of implementing interactive maps with geocoding functionalities, making it suitable for a wide range of applications, from location-based services to interactive mapping experiences.
 
-This is a small React application that has only two components. It has a map and an input field representing geocodes. The map and the geocode are very closely connected and the user can search for new addresses using the external api of react-mapbox-gl.
+## Key Features
 
-Possible ways to search for an address:
-1. The user can use the drag and drop method to drag a pin on the map to a certain place, where the address field will automatically change and be filled.
-2. The user can search for addresses by entering a string in the *Address* field. For each iteration (each new string entered), the user will be suggested 5 addresses that most closely match the currently entered string. For the selected address, the map will move to that address
+### Interactive Map Integration
+The core feature of this library is the integration of a dynamic Mapbox map. You can display the map with a specified style and initial position, enabling users to explore locations visually. The map can be configured to support two distinct modes of movement: "FLY_TO" for smooth transitions and "BASE" for immediate positioning.
 
+### Dynamic Marker Placement
+This library allows you to place a marker on the map, indicating a specific location. Users can interact with the marker by dragging it to a new position. As the marker moves, the associated address is automatically updated to reflect the current location, providing a seamless way to capture and display address information.
 
-- npm clean install; // package-lock.json contain all required libraries;
-- npm start;
+### Geocoding Autocomplete
+The library provides a powerful autocomplete functionality for searching addresses. As users type into the input field, the library offers suggestions for possible locations. This feature enhances the user experience by helping users quickly find and select addresses without the need for precise typing.
 
+## Usage
 
-![gggg](https://user-images.githubusercontent.com/57072437/178556525-974bf8e2-0a6e-416e-b514-c2db1c2a7ce0.png)
-![gggg2](https://user-images.githubusercontent.com/57072437/178556530-6c653871-8089-41de-b2d6-1454f14cc9c8.png)
+To get started, import the `react-mapbox-geocoder-autocomplete` library into your React application. Here are the available props that you can use to customize the behavior and appearance of the map and geocoding components:
+
+```jsx
+import Geocoder from 'react-mapbox-geocoder-autocomplete';
+
+function App() {
+  return (
+    <div>
+      <Geocoder mapToken="pk.(...)" /> // Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+    </div>
+  );
+}
+
+export default App;
+```
+
+## Custom Styles
+The map will occupy the maximum height and width of the parent component. If you want to additionally style the map, inspect the component and access the input field or map via the className and adjust your style.
+The map has more styles that you can find here: _https://docs.mapbox.com/api/maps/styles/_
+
+```css
+/* GeocoderCustomStyles.css */
+
+.custom-react-geocoder {
+  border: 1px solid red;
+}
+
+.mapboxgl-map,{
+  position: absolute;
+  width: 400px;
+  height: 400px;
+}
+```
+
+```jsx
+    import './GeocoderCustomStyles.css';
+
+    ...
+
+    <div>
+      <Geocoder mapToken="pk.(...)" /> // Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+    </div>
+
+  ...
+```
