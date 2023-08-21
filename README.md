@@ -19,10 +19,13 @@ To get started, import the `react-mapbox-geocoder-autocomplete` library into you
 ```jsx
 import Geocoder from 'react-mapbox-geocoder-autocomplete';
 
+// Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+const mapToken = "pk.(...)";
+
 function App() {
   return (
     <div>
-      <Geocoder mapToken="pk.(...)" /> // Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+      <Geocoder mapToken={mapToken} />
     </div>
   );
 }
@@ -40,24 +43,28 @@ The map has more styles that you can find here: _https://docs.mapbox.com/api/map
 .custom-react-geocoder {
   border: 1px solid red;
 }
-
-.mapboxgl-map,{
-  position: absolute;
-  width: 400px;
-  height: 400px;
+  
+.mapboxgl-map {
+  max-width: 400px;
 }
 ```
 
 ```jsx
-    import './GeocoderCustomStyles.css';
+import Geocoder from 'react-mapbox-geocoder-autocomplete';
+import './GeocoderCustomStyles.css';
 
-    ...
+// Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+const mapToken = "pk.(...)";
 
+function App() {
+  return (
     <div>
-      <Geocoder mapToken="pk.(...)" /> // Choose your mapToken that you can create for free here: _https://docs.mapbox.com/help/tutorials/get-started-tokens-api/_
+      <Geocoder mapToken={mapToken} />
     </div>
+  );
+}
 
-  ...
+export default App;
 ```
 
 ## Props
