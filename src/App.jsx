@@ -1,5 +1,5 @@
 import React from "react";
-import Geocoder from "./components/Geocoder";
+import Autocomplete from "./components/Autocomplete";
 import Map from "./components/Map";
 
 const initViewPosition = {
@@ -60,7 +60,7 @@ const App = ({
 
   return (
     <>
-      <Geocoder
+      <Autocomplete
         onItemClick={onItemClick}
         address={address}
         mapToken={mapToken}
@@ -81,5 +81,5 @@ const App = ({
   );
 };
 
-export {Geocoder, Map};
+export {Autocomplete, Map};
 export default App;

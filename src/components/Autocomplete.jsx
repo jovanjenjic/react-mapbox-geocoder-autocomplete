@@ -93,7 +93,7 @@ const getSuggestedAddress = async (mapToken, { address, limit }) => {
   return {};
 };
 
-const Geocoder = ({
+const Autocomplete = ({
   mapToken,
   onItemClick = () => {},
   numOfResults = 15,
@@ -157,7 +157,7 @@ const Geocoder = ({
   );
 };
 
-Geocoder.propTypes = {
+Autocomplete.propTypes = {
   pause: PropTypes.number,
   onItemClick: PropTypes.func.isRequired,
   mapZoom: PropTypes.number,
@@ -166,4 +166,4 @@ Geocoder.propTypes = {
   address: PropTypes.string,
 };
 
-export default Geocoder;
+export default Autocomplete;

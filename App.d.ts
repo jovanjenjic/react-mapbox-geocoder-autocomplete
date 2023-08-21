@@ -5,6 +5,11 @@ interface ViewPosition {
     latitude: number;
 }
 
+interface ViewPositionShort {
+  lng: number;
+  lat: number;
+}
+
 interface AppProps {
     mapToken: string;
     mapStyle?: string;
@@ -19,7 +24,7 @@ interface AppProps {
   
 interface MapProps {
     mapToken: string;
-    handleMarkerDrag: (lngLat: ViewPosition) => void;
+    handleMarkerDrag: (lngLat: ViewPositionShort) => void;
     viewPosition: ViewPosition;
     mapStyle?: string;
     mapPin?: string;
@@ -55,7 +60,7 @@ interface AddressFeature {
     }>;
 }
   
-interface GeocoderProps {
+interface AutocompleteProps {
     mapToken: string;
     address: string;
     onItemClick: (vp: ViewPosition, item: AddressFeature) => void;
@@ -64,7 +69,7 @@ interface GeocoderProps {
 
 declare const App: React.FC<AppProps>;
 declare const Map: React.FC<MapProps>;
-declare const Geocoder: React.FC<GeocoderProps>;
+declare const Autocomplete: React.FC<AutocompleteProps>;
 
-export { Map, Geocoder };
+export { Map, Autocomplete };
 export default App;
