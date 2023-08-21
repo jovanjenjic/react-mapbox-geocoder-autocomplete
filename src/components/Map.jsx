@@ -2,6 +2,7 @@ import React from 'react';
 import mapboxgl from 'mapbox-gl';
 import styled from "styled-components";
 import 'mapbox-gl/dist/mapbox-gl.css';
+import MapPin from "../images/pin.png";
 
 const MapContainer = styled.div`
   height: 100%;
@@ -24,16 +25,23 @@ const MapContainer = styled.div`
   }
 `;
 
+const defaultMapStyle = "mapbox://styles/mapbox/streets-v12";
+
+const initViewPosition = {
+  longitude: -73.9866,
+  latitude: 40.72929915979287,
+};
+
 const MapboxIntegration = ({
-    viewPosition,
     mapToken,
-    mapPin,
-    handleMarkerDrag,
-    mapStyle,
-    pinSize,
-    mapMoveMode,
-    flyDuration,
-    initMapZoom
+    viewPosition = initViewPosition,
+    mapStyle = defaultMapStyle,
+    mapPin = MapPin,
+    handleMarkerDrag = () => {},
+    pinSize = [60, 60],
+    mapMoveMode = "FLY_TO",
+    flyDuration = 10000,
+    initMapZoom = 15
  }) => {
     const [map, setMap] = React.useState(null);
     const [marker, setMarker] = React.useState(null);

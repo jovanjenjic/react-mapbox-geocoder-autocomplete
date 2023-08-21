@@ -94,9 +94,9 @@ const getSuggestedAddress = async (mapToken, { address, limit }) => {
 };
 
 const Geocoder = ({
-  onItemClick,
-  numOfResults = 15,
   mapToken,
+  onItemClick = () => {},
+  numOfResults = 15,
   address = "",
 }) => {
   const [results, setResults] = React.useState([]);
